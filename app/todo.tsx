@@ -1,7 +1,6 @@
 import { HomeLinkButton } from '@/components/Button';
 import React, { useState } from 'react';
-import { SafeAreaView, TextInput, Button, View, ScrollView } from "react-native";
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { SafeAreaView, TextInput, Button, View, ScrollView, StyleSheet, TouchableOpacity, Text } from "react-native";
 
 
 export default function HomeScreen() {

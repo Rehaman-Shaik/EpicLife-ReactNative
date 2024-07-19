@@ -1,11 +1,11 @@
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { LinkButton, LinkButtonWithReplace } from '@/components/Button';
+import Post from '@/components/feed/post';
 
 
 export default function Page() {
     return (
         <SafeAreaView style={styles.topContainer}>
-            <Text>Welcome </Text>
             <View style={styles.buttonContainer}>
                 {LinkButton("/todo", "TO-DO")}
                 {LinkButton("/dairy", "Dairy")}
@@ -18,7 +18,18 @@ export default function Page() {
                 {LinkButton("/chat", "Chat")}
                 {LinkButtonWithReplace("/", "LogOut")}
             </View>
-                {/* {LinkButton("/Test", "Test")} */}
+            {/* {LinkButton("/Test", "Test")} */}
+            <ScrollView style={{ flexDirection: 'column', marginLeft:25, marginTop:10, marginRight:25}}>
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+            </ScrollView>
         </SafeAreaView>
     );
 }
