@@ -8,18 +8,16 @@ export default function Page() {
         <SafeAreaView style={styles.topContainer}>
             <View style={styles.buttonContainer}>
                 {LinkButton("/todo", "TO-DO")}
-                {LinkButton("/dairy", "Dairy")}
+                {LinkButton("/diary", "Diary")}
                 {LinkButton("/finance", "Finance")}
-                {LinkButton("/games", "Games")}
+                {LinkButton("/watchList", "Watch/Play List")}
             </View>
             <View style={styles.buttonContainer}>
-                {LinkButton("/movies", "Movies")}
-                {LinkButton("/series", "Series")}
                 {LinkButton("/chat", "Chat")}
                 {LinkButtonWithReplace("/", "LogOut")}
             </View>
             {/* {LinkButton("/Test", "Test")} */}
-            <ScrollView style={{ flexDirection: 'column', marginLeft:25, marginTop:10, marginRight:25}}>
+            <ScrollView style={{ flexDirection: 'column', marginLeft: 25, marginTop: 10, marginRight: 25 }}>
                 <Post />
                 <Post />
                 <Post />

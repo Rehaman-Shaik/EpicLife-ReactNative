@@ -6,11 +6,9 @@ export default function RootLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="home" />
       <Stack.Screen name="todo" />
-      <Stack.Screen name="dairy" />
+      <Stack.Screen name="diary" />
       <Stack.Screen name="finance" />
-      <Stack.Screen name="movies" />
-      <Stack.Screen name="games" />
-      <Stack.Screen name="series" />
+      <Stack.Screen name="watchList" />
       <Stack.Screen name="Test" />
     </Stack>
   );

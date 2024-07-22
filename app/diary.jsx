@@ -3,7 +3,7 @@ import { View, SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView, Tex
 import { HomeLinkButton } from '@/components/Button';
 import diaryEntries from '../components/diary/entrylist';
 
-export default function Page() {
+export default function diary() {
     const [isPressed, setIsPressed] = useState(null);
     const [diaryEntriesReact, setDiaryEntriesReact] = useState(diaryEntries);
     const [text, setText] = useState('');
@@ -39,6 +39,11 @@ export default function Page() {
 
     return (
         <SafeAreaView style={styles.topContainer}>
+            <ScrollView>
+                <View>
+                    {diaryEntriesReact.map(renderDiaryEntry)}
+                </View>
+            </ScrollView>
             <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                 <TextInput
                     style={styles.input}
@@ -48,14 +53,7 @@ export default function Page() {
                 />
                 <Button title="Add" onPress={handlePressInputButton} />
             </View>
-            <ScrollView>
-                <View>
-                    {diaryEntriesReact.map(renderDiaryEntry)}
-                </View>
-            </ScrollView>
-            <View>
-                {HomeLinkButton()}
-            </View>
+
         </SafeAreaView>
     );
 }
@@ -110,4 +108,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export { Page };
+export { diary };

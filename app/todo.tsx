@@ -42,6 +42,9 @@ export default function HomeScreen() {
     };
     return (
         <SafeAreaView style={styles.topContainer}>
+            <ScrollView style={styles.scrollView}>
+                {items.map((item, index) => createText(item, index))}
+            </ScrollView>
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
@@ -51,10 +54,6 @@ export default function HomeScreen() {
                 />
                 <Button title="Add" onPress={handlePress} />
             </View>
-            <ScrollView style={styles.scrollView}>
-                {items.map((item, index) => createText(item, index))}
-            </ScrollView>
-            {HomeLinkButton()}
         </SafeAreaView>
     );
 }
