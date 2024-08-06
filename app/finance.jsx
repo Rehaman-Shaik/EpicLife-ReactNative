@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, SafeAreaView, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
-import { HomeLinkButton } from '@/components/Button';
+import { MongoDatabase } from '@/components/mongo/common';
 
 function finance() {
     const [accountBalance, setAccountBalance] = useState(1001);
     const [amount, setAmount] = useState('');
     const [transactionType, setTransactionType] = useState('');
     const [transactions, setTransactions] = useState([]);
+
+    try {
+        useEffect(() => {
+            const db = new MongoDatabase("EpicLife", "Finance");
+            db.retrieveAll()
+                .then((data) => {
+                    console.log("Retrieved data:", data);
+                    // You can handle the retrieved data here
+                })
+                .catch((error) => {
+                    console.error("Failed to retrieve data:", error);
+                });
+        }, []);
+    } catch (error) {
+        console.log(error);
+    }
 
     const handlePressInputButton = () => {
         if (amount.trim() !== '' && transactionType.trim() !== '') {
