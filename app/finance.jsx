@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Button, SafeAreaView, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native';
-import { MongoDatabase } from '@/components/mongo/common';
 
 function finance() {
     const [accountBalance, setAccountBalance] = useState(1001);
