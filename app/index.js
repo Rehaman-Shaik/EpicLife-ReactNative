@@ -54,7 +54,7 @@ const ImageSection = () => (
       source={require('../assets/images/loading-image-square.png')}
     />
   </View>
-);
+); 
 
 const InputSection = ({ email, setEmail, password, setPassword }) => (
   <View style={styles.inputContainer}>
