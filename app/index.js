@@ -38,7 +38,7 @@ export default function Login() {
     <SafeAreaView style={styles.topContainer}>
       <ImageSection />
       {isCredentialsCorrect ? <Text>  </Text> : <Text>Credentials are not correct try again</Text>}
-      {isInputEmpty & <Text> Please enter your Credentials </Text>}
+      {isInputEmpty && <Text> Please enter your Credentials </Text>}
       <InputSection email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
       <ButtonSection onLogin={handleLogin} />
       <SignUpPrompt />
