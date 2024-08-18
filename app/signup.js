@@ -1,7 +1,68 @@
-import { SafeAreaView, TextInput, View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
-import { LinkButtonWithReplace, LinkTouchableOpacity } from '@/components/Button';
+import React, { useState } from 'react';
+import { SafeAreaView, TextInput, View, StyleSheet, Image, Text, Button } from 'react-native';
+import { useRouter } from 'expo-router';
+import { LinkTouchableOpacity } from '@/components/Button';
 
+// Reusable Input Component
+function InputField({ placeholder, value, onChangeText, secureTextEntry = false }) {
+  return (
+    <TextInput
+      style={styles.input}
+      placeholder={placeholder}
+      value={value}
+      onChangeText={onChangeText}
+      secureTextEntry={secureTextEntry}
+    />
+  );
+}
+
+// Error Message Component
+function ErrorMessage({ message }) {
+  return message ? <Text style={styles.errorText}>{message}</Text> : null;
+}
+
+// Main SignUp Component
 export default function SignUp() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [againPassword, setAgainPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSignup = async () => {
+    setError('');
+    if (!email || !password || !againPassword) {
+      setError('Please enter your credentials.');
+      return;
+    }
+
+    if (password !== againPassword) {
+      setError('Passwords do not match.');
+      setPassword('');
+      setAgainPassword('');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://rehamanshaikofficial.xyz/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+      if (result.shouldSignup === 'alreadypresent') {
+        setError('Email already exists. Please login or use another email.');
+      } else if (result.shouldSignup) {
+        router.replace('/home');
+      } else {
+        setError('Signup failed. Please try again.');
+      }
+    } catch (error) {
+      setError('Error signing up. Please try again later.');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.topContainer}>
       <View style={styles.imageContainer}>
@@ -10,17 +71,21 @@ export default function SignUp() {
           source={require('../assets/images/loading-image-square.png')}
         />
       </View>
+
+      <ErrorMessage message={error} />
+
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Enter your email" />
-        <TextInput style={styles.input} placeholder="Enter your password" secureTextEntry={true} />
-        <TextInput style={styles.input} placeholder="Enter your password again" secureTextEntry={true} />
+        <InputField placeholder="Enter your email" value={email} onChangeText={setEmail} />
+        <InputField placeholder="Enter your password" value={password} onChangeText={setPassword} secureTextEntry />
+        <InputField placeholder="Confirm your password" value={againPassword} onChangeText={setAgainPassword} secureTextEntry />
       </View>
+
       <View style={styles.buttonContainer}>
-        {/* {LinkButtonWithReplace("/home", "Sign Up")} */}
-        {LinkButtonWithReplace("/home", "Signup")}
+        <Button title="Signup" onPress={handleSignup} />
       </View>
-      <View style={{ borderColor: 'black', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ marginRight: 5 }}>
+
+      <View style={styles.linkContainer}>
+        <Text style={styles.linkText}>
           Already have an account?
         </Text>
         {LinkTouchableOpacity('/', 'Login', 'blue')}
@@ -59,9 +124,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonContainer: {
+    marginVertical: 10,
+  },
+  linkContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-    marginBottom: 5
+    alignItems: 'center',
+  },
+  linkText: {
+    marginRight: 5,
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
