@@ -17,7 +17,7 @@ export default function Page() {
                 {LinkButtonWithReplace("/", "LogOut")}
             </View>
             {/* {LinkButton("/Test", "Test")} */}
-            <ScrollView style={{ flexDirection: 'column', marginLeft: 25, marginTop: 10, marginRight: 25 }}>
+            <ScrollView style={{ flexDirection: 'column', marginLeft: 2, marginTop: 5, marginRight: 2}}>
                 <Post />
                 <Post />
                 <Post />
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         padding: 10,
         backgroundColor: '#f5f5f5',
+        marginTop:5
     },
     buttonContainer: {
         flexDirection: 'row',
