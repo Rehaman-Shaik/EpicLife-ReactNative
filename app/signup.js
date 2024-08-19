@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   imageContainer: {
+    marginTop:70,
     marginBottom: 10,
   },
   image: {

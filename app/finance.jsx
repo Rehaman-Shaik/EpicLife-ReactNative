@@ -7,22 +7,6 @@ function finance() {
     const [transactionType, setTransactionType] = useState('');
     const [transactions, setTransactions] = useState([]);
 
-    try {
-        useEffect(() => {
-            const db = new MongoDatabase("EpicLife", "Finance");
-            db.retrieveAll()
-                .then((data) => {
-                    console.log("Retrieved data:", data);
-                    // You can handle the retrieved data here
-                })
-                .catch((error) => {
-                    console.error("Failed to retrieve data:", error);
-                });
-        }, []);
-    } catch (error) {
-        console.log(error);
-    }
-
     const handlePressInputButton = () => {
         if (amount.trim() !== '' && transactionType.trim() !== '') {
             const newTransaction = {
