@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Button } from 'react-native';
 import { HomeLinkButton } from '@/components/Button';
-import diaryEntries from '../components/diary/entrylist';
+import diaryEntries from '../../components/diary/entrylist';
 
 export default function diary() {
     const [isPressed, setIsPressed] = useState(null);
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
         backgroundColor: '#f5f5f5',
+        marginTop:15
     },
     diary: {
         borderWidth: 1,

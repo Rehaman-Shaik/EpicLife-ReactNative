@@ -60,7 +60,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
     topContainer: {
-        padding: 16,
+        marginTop:20,
+        padding: 10,
     },
     titleContainer: {
         flexDirection: 'row',
@@ -93,13 +94,13 @@ const styles = StyleSheet.create({
         flex: 1,
         borderColor: 'gray',
         borderWidth: 1,
+        borderRadius:10,
         paddingHorizontal: 8,
         marginRight: 8,
         height: 40,
         backgroundColor: '#fff',
     },
     scrollView: {
-        marginTop: 16,
         marginBottom: 16,
     },
     itemText: {
@@ -108,5 +109,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
+        borderRadius:4
     },
 });

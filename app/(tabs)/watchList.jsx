@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
         backgroundColor: '#f5f5f5',
+        marginTop:15
     },
     section: {
         marginBottom: 20,

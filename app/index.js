@@ -3,6 +3,19 @@ import { SafeAreaView, TextInput, View, StyleSheet, Image, Text, Button } from '
 import { LinkTouchableOpacity } from '@/components/Button';
 import { useRouter } from 'expo-router';
 
+
+async function readJsonFile(filePath) {
+  try {
+    const data = await fs.readFile(filePath, 'utf-8');
+    const jsonData = JSON.parse(data);
+    jsonData.le
+    return jsonData;
+  } catch (error) {
+    console.error('Error reading JSON file:', error);
+  }
+}
+
+
 // Main Component
 export default function Login() {
   const router = useRouter();
