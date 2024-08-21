@@ -1,20 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, TextInput, View, StyleSheet, Image, Text, Button } from 'react-native';
 import { LinkTouchableOpacity } from '@/components/Button';
 import { useRouter } from 'expo-router';
-
-
-async function readJsonFile(filePath) {
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    const jsonData = JSON.parse(data);
-    jsonData.le
-    return jsonData;
-  } catch (error) {
-    console.error('Error reading JSON file:', error);
-  }
-}
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Main Component
 export default function Login() {
@@ -22,13 +10,27 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem('authToken');
+      if (token) {
+        router.replace('/home');
+      } else {
+        setLoading(false);
+      }
+    };
+    checkToken();
+  }, []);
 
   const handleLogin = async () => {
     if (!email || !password) {
       setError('Please enter your credentials.');
       return;
     }
-
+    setIsLoading(true)
     try {
       const response = await fetch('https://rehamanshaikofficial.xyz/login', {
         method: 'POST',
@@ -39,21 +41,34 @@ export default function Login() {
       const result = await response.json();
 
       if (result['shouldLogin'] === true) {
+        await AsyncStorage.setItem('authToken', result.token);
         router.replace('/home');
       } else {
         setError('Invalid email or password. Please try again.');
+    setIsLoading(false)
+
       }
     } catch (error) {
       setError('An error occurred during login. Please try again.');
+    setIsLoading(false)
+
     }
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ImageSection />
       {error && <ErrorMessage message={error} />}
       <InputSection email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
-      <ButtonSection onLogin={handleLogin} />
+      {isLoading ?<Text>Loading...</Text>: <ButtonSection onLogin={handleLogin} />}
       <SignUpPrompt />
     </SafeAreaView>
   );

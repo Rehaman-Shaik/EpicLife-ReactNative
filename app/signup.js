@@ -28,6 +28,7 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [againPassword, setAgainPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSignup = async () => {
     setError('');
@@ -42,6 +43,7 @@ export default function SignUp() {
       setAgainPassword('');
       return;
     }
+    setIsLoading(true)
 
     try {
       const response = await fetch('https://rehamanshaikofficial.xyz/signup', {
@@ -57,9 +59,11 @@ export default function SignUp() {
         router.replace('/home');
       } else {
         setError('Signup failed. Please try again.');
+        setIsLoading(false)
       }
     } catch (error) {
       setError('Error signing up. Please try again later.');
+      setIsLoading(false)
     }
   };
 
@@ -81,7 +85,7 @@ export default function SignUp() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button title="Signup" onPress={handleSignup} />
+        {isLoading ? <Text>Loading...</Text> : <Button title="Signup" onPress={handleSignup} />}
       </View>
 
       <View style={styles.linkContainer}>
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   imageContainer: {
-    marginTop:70,
+    marginTop: 70,
     marginBottom: 10,
   },
   image: {
