@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginLeft:5
   },
   scrollView: {
     marginHorizontal: 2,
