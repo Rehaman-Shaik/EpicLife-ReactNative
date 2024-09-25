@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, TextInput, View, StyleSheet, Image, Text, Button } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinkTouchableOpacity } from '@/components/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Reusable Input Component
 function InputField({ placeholder, value, onChangeText, secureTextEntry = false }) {
@@ -55,13 +56,15 @@ export default function SignUp() {
       const result = await response.json();
       if (result.shouldSignup === 'alreadypresent') {
         setError('Email already exists. Please login or use another email.');
-      } else if (result.shouldSignup) {
+      } else if (result.insertedId) {
+        await AsyncStorage.setItem('authToken', result.insertedId);
         router.replace('/home');
       } else {
         setError('Signup failed. Please try again.');
         setIsLoading(false)
       }
     } catch (error) {
+      console.log(error);
       setError('Error signing up. Please try again later.');
       setIsLoading(false)
     }
