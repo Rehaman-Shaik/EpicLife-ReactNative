@@ -20,7 +20,7 @@ const addWatchItem = async (newEntry) => {
   } catch (error) {
     console.error("Error adding to-do item:", error.message);
   }
-}
+};
 
 async function getData(setMediaList) {
   const userToken = await AsyncStorage.getItem('authToken');
@@ -43,7 +43,6 @@ const mediaTypeOptions = [
   { label: 'Series', value: 'series' },
   { label: 'Movie', value: 'movie' },
   { label: 'Book', value: 'book' },
-  // Add more media types if needed
 ];
 
 function MediaList() {
@@ -51,10 +50,9 @@ function MediaList() {
   const [mediaType, setMediaType] = useState(null);
   const [mediaList, setMediaList] = useState([]);
 
-  // This useEffect will only run once after the component mounts
   useEffect(() => {
     getData(setMediaList);
-  }, []); // Empty dependency array ensures it runs only once
+  }, []);
 
   const toggleMediaStatus = (id) => {
     setMediaList(prevList =>
@@ -76,7 +74,6 @@ function MediaList() {
     setMediaName("");
     setMediaType(null);
     await addWatchItem(newMedia);
-    // Update media list after adding the new item
     await getData(setMediaList);
   };
 
@@ -102,13 +99,13 @@ function MediaList() {
     <SafeAreaView style={styles.container}>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Media to Watch/Play</Text>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
           {renderMedia(mediaList, false)}
         </ScrollView>
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Watched/Played Media</Text>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
           {renderMedia(mediaList, true)}
         </ScrollView>
       </View>
@@ -146,12 +143,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   section: {
+    flex: 1, // Ensure each section takes up available space
     marginBottom: 20,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+  },
+  scrollContainer: {
+    paddingBottom: 20, // Add padding to prevent content from being cut off
   },
   card: {
     padding: 10,
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     backgroundColor: '#fff',
     marginRight: 10,
-    height:40
+    height: 40,
   },
   dropdown: {
     flex: 1,
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 8,
     backgroundColor: '#fff',
-    marginRight:10
+    marginRight: 10,
   },
   placeholderStyle: {
     fontSize: 16,
