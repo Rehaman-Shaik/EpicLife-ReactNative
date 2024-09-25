@@ -37,7 +37,7 @@ async function getData(setTransactions, setAccountBalance) {
         // Recalculate balance after fetching
         let totalBalance = 0;
         data.forEach(item => {
-            totalBalance += item.type === 'credit' ? Number(item.amount) : -Number(item.amount);
+            totalBalance += item.text === 'credit' ? Number(item.amount) : -Number(item.amount);
         });
         setAccountBalance(totalBalance);
 
@@ -91,7 +91,7 @@ function Finance() {
         <View key={index} style={styles.transaction}>
             <Text style={styles.transactionText}>{transaction.id}</Text>
             <Text style={styles.transactionText}>{transaction.time}</Text>
-            <Text style={styles.transactionText}>{transaction.type}</Text>
+            <Text style={styles.transactionText}>{transaction.text}</Text>
             <Text style={styles.transactionText}>${transaction.amount.toFixed(2)}</Text>
         </View>
     );
